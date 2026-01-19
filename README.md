@@ -1,6 +1,6 @@
 # Curso LangChain - Aluno
 
-Projeto de aprendizado sobre LangChain, incluindo fundamentos, chains, processamento e agentes com tools.
+Projeto de aprendizado sobre LangChain, incluindo fundamentos, chains, processamento, agentes com tools e gerenciamento de memória.
 
 ## Pré-requisitos
 
@@ -51,12 +51,13 @@ OPENAI_API_KEY=sua_chave_api_aqui
 
 ```
 curso-lang-chain-aluno/
-├── 1-fundamentos/          # Conceitos básicos do LangChain
-├── 2-chains-process/       # Chains e processamento
-├── 3-agentes-e-tools/      # Agentes e ferramentas
-├── venv/                   # Ambiente virtual (não versionado)
-├── .env                    # Variáveis de ambiente (não versionado)
-└── README.md              # Este arquivo
+├── 1-fundamentos/              # Conceitos básicos do LangChain
+├── 2-chains-process/           # Chains e processamento
+├── 3-agentes-e-tools/          # Agentes e ferramentas
+├── 4-gerenciamento-de-memoria/ # Gerenciamento de histórico e memória
+├── venv/                       # Ambiente virtual (não versionado)
+├── .env                        # Variáveis de ambiente (não versionado)
+└── README.md                   # Este arquivo
 ```
 
 ## Executando os Exemplos
@@ -65,6 +66,12 @@ curso-lang-chain-aluno/
 
 ```bash
 python3 3-agentes-e-tools/1-agente-react-tools.py
+```
+
+### Exemplo: Gerenciamento de Histórico
+
+```bash
+python3 4-gerenciamento-de-memoria/1-armazenamento-de-historico
 ```
 
 ## Desativar o Ambiente Virtual

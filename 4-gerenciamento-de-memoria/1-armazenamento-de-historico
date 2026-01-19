@@ -1,0 +1,50 @@
+from dotenv import load_dotenv
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.chat_history import InMemoryChatMessageHistory
+from langchain_core.runnables import RunnableWithMessageHistory
+
+
+load_dotenv()
+
+
+
+#chat_history = InMemoryChatMessageHistory()
+prompt = ChatPromptTemplate.from_messages([
+    MessagesPlaceholder(variable_name="history"),
+    ("user", "{input}"),
+])
+
+llm = ChatOpenAI(model="gpt-5-mini", temperature=0.9, disable_streaming=True)
+
+chain = prompt | llm
+
+session_store : dict[str, InMemoryChatMessageHistory] = {}
+
+def get_session_history(session_id: str) -> InMemoryChatMessageHistory:
+    if session_id not in session_store:
+        session_store[session_id] = InMemoryChatMessageHistory()
+    return session_store[session_id]
+
+conversation = RunnableWithMessageHistory(
+    runnable=chain,
+    get_session_history=get_session_history,
+    input_messages_key="input",
+    history_messages_key="history",
+)
+
+config = {"configurable": {
+    "session_id": "demo-session",}}
+
+#Interactions
+response1 = conversation.invoke({"input": "Olá, Meu nome é Marcel poderia me ajudar?"}, config=config)
+print(response1.content)
+print("-"*30)
+
+response2 = conversation.invoke({"input": "Poderia repetir meu nome para ver se vc lembra de mim"}, config=config)
+print(response2.content)
+print("-"*30)
+
+response3 = conversation.invoke({"input": "Poderia repetir meu nome com uma frase motivacional?"}, config=config)
+print(response3.content)
+print("-"*30)
